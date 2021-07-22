@@ -192,7 +192,7 @@ function update() {
 
     if (level == 1) {
 
-        ctx.font = '40px Montserrat sans-serif';
+        ctx.font = 'normal 40px Montserrat';
         ctx.fillText('Level 1', canvas.width / 2 - 50, canvas.height / 2 - 200)
 
 
