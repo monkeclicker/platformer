@@ -1,24 +1,64 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center">
-                    <td class="align-middle">
-                        <h1>Download</h1>
-                        <h5>don't forget to zip the file</h5>
-                        <a href="https://mega.nz/folder/pWIASZDD#dQklaFaDaNHbkW6-ho4tMQ" style="text-decoration: none; color: black; background-color: lightgrey; opacity: 1; padding: 10px;"><b>Download Link</b></a>
-                    </td>
-                </div>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="/images/character.png">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+        <title>Platformer</title>
+    </head>
+    <body>
+        <div id="welcome" style="display: none;">
+
+            <button id="playGame">Play</button>
+            <br><br><br><br>
+            <h1 id="wlcText">Welcome to a Platformer Game</h1>
+            <br><br><br><br><br>
+            <h2 id="keys">The Keys</h2>
+            <ul>
+                <br><br><br><br><br>
+                <li id="keyList">
+                    <b>Jump:
+                    </b>
+                    W, Up Arrow, Space</li>
+                <br><br><br><br>
+                <li id="keyList">
+                    <b>Left:
+                    </b>
+                    A, Left Arrow</li>
+                <br><br><br><br>
+                <li id="keyList">
+                    <b>Right:
+                    </b>
+                    D, Right Arrow</li>
+            </ul>
+            <br><br><br><br><br>
+            <h2 id="keys">The Goal</h2>
+            <ul>
+                <br><br><br>
+                <h2 id="goal">The goal of this game is to beat the level(s). Although there is only one level currently, Charles is working his hardest to create as many levels to play as possible!</h2>
+            </ul>
+            <br><br><br><br><br>
+            <br><br><br>
+            <h2 id="updates">Updates</h2>
+            <ul>
+                <br><br><br>
+                <h2 id="updateText">Updates can be viewed in the discord server in the
+                    <b>#updates</b>
+                    section. You can join the discord server here
+                    <a href="https://discord.gg/EJuwMGjQ3c" target="_blank" id="discordLink">https://discord.gg/EJuwMGjQ3c</a>
+                    or by clicking the icon in the top right of your screen.</h2>
+            </ul>
         </div>
-    </div>
-</body>
+        <h5>Charles O © 2021 | Credit: milabear</h5>
+        <a href="https://discord.gg/EJuwMGjQ3c" target="_blank">
+            <img id="discord" src="/images/discord.png" alt="Image of discord logo.">
+        </a>
+        <canvas id="canvas"></canvas>
+        <div style="display:none">
+            <img id="character" src="images/character.png">
+        </div>
+        <script src="main.js" type="module"></script>
+    </body>
 </html>

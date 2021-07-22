@@ -1,0 +1,142 @@
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+
+html,
+body {
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #655643;
+}
+
+h1 {
+    color: #BF4D28;
+    font-size: 3em;
+    line-height: 1em;
+    margin-bottom: 15px;
+    font-family: sans-serif;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+
+    @media {}
+}
+
+p {
+    line-height: 1em;
+}
+
+div {
+    color: #BF4D28;
+    font-family: sans-serif;
+    line-height: 10px;
+    margin: 2%;
+}
+
+#canvas {
+    background: lightblue;
+}
+
+h5 {
+    position: absolute;
+    top: -10;
+    left: 15;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#discord {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 15;
+    right: 15;
+}
+
+#welcome {
+    background: #f3db7b;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#wlcText {
+    font-size: 72px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #877bf3;
+}
+
+#keys {
+    font-size: 40px;
+    text-indent: 20px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    color: #877bf3;
+}
+
+#keyList {
+    font-size: 24px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    color: #877bf3;
+}
+
+#goal {
+    font-size: 24px;
+    line-height: 30px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    color: #877bf3;
+}
+
+#updates {
+    font-size: 40px;
+    text-indent: 20px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    color: #877bf3;
+}
+
+#updateText {
+    font-size: 24px;
+    line-height: 30px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+    color: #877bf3;
+}
+
+#discordLink {
+    background: #877bf3;
+}
+
+#playGame {
+    font-size: 30px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    right: 50%;
+    width: 100px;
+    height: 50px;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f37b7b;
+}
+
+#playGame:hover {
+    transform: scale(1.1);
+}
+
+#playGame:active {
+    transform: scale(0.9);
+}
