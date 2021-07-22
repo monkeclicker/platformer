@@ -26,10 +26,12 @@ var canvas = document.getElementById("canvas"),
         color: '#E6AC27',
         image: document.getElementById('character')
     },
+    level = 1,
     keys = [],
     friction = 0.8,
     gravity = 0.4,
     boxes = [],
+    boxes2 = [],
     powerup = [],
     lava = [];
 
@@ -78,38 +80,36 @@ boxes.push({
     y: 0,
     width: 10,
     height: height,
-    color: '#a08f73'
+    color: '#a08f73',
 });
 boxes.push({
     x: 0,
     y: height - 50,
-    width: 400,
+    width: 300,
     height: 50,
+    color: '#a08f73',
 });
-boxes.push({
-    x: width - 866,
-    y: height - 50,
-    width: 856,
-    height: 50,
-})
 boxes.push({
     x: width - 10,
     y: 0,
     width: 50,
     height: height,
+    color: '#a08f73',
 });
 boxes.push({
     x: 0,
     y: 0,
     width: width,
     height: 10,
+    color: '#a08f73',
 })
 
 boxes.push({
     x: 300,
-    y: height - 110,
+    y: height - 115,
     width: 100,
     height: 10,
+    color: '#a08f73',
 });
 
 boxes.push({
@@ -117,12 +117,37 @@ boxes.push({
     y: height - 155,
     width: 100,
     height: 10,
+    color: '#a08f73',
+});
+
+boxes.push({
+    x: 700,
+    y: height - 155,
+    width: 100,
+    height: 10,
+    color: '#a08f73',
+});
+
+boxes.push({
+    x: 780,
+    y: height - 300,
+    width: 100,
+    height: 10,
+    color: '#a08f73',
+});
+
+boxes.push({
+    x: 1180,
+    y: height - 200,
+    width: 100,
+    height: 10,
+    color: '#a08f73',
 });
 
 lava.push({
-    x: 400,
+    x: 300,
     y: height - 50,
-    width: 100,
+    width: width - 310,
     height: 50,
     color: '#F76806'
 })
@@ -164,98 +189,201 @@ function update() {
 
     player.grounded = false;
     ctx.beginPath();
-    for (var i = 0; i < boxes.length; i++) {
-        ctx.fillStyle = boxes[i].color;
-        ctx.rect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
-        ctx.fill();
 
-        var dir = collisionCheck(player, boxes[i]);
+    if (level == 1) {
 
-        if (dir === "l" || dir === "r") {
-            player.velX = 0;
-            player.jumping = false;
-        } else if (dir === "b") {
-            player.grounded = true;
-            player.jumping = false;
-        } else if (dir === "t") {
-            player.velY *= -1;
+        ctx.font = '40px Montserrat sans-serif';
+        ctx.fillText('Level 1', canvas.width / 2 - 50, canvas.height / 2 - 200)
+
+
+        for (var i = 0; i < boxes.length; i++) {
+            ctx.fillStyle = boxes[i].color;
+            ctx.fillRect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
+
+            var dir = collisionCheck(player, boxes[i]);
+
+            if (dir === "l" || dir === "r") {
+                player.velX = 0;
+                player.jumping = false;
+            } else if (dir === "b") {
+                player.grounded = true;
+                player.jumping = false;
+            } else if (dir === "t") {
+                player.velY *= -1;
+            }
+
         }
 
-    }
-    ctx.closePath();
-
-    ctx.beginPath();
-    for (var k = 0; k < lava.length; k++) {
-        ctx.fillStyle = lava[k].color;
-        ctx.rect(lava[k].x, lava[k].y, lava[k].width, lava[k].height)
-        
+        for (var k = 0; k < lava.length; k++) {
+            ctx.fillStyle = lava[k].color;
+            ctx.fillRect(lava[k].x, lava[k].y, lava[k].width, lava[k].height)
 
 
-        var dir = collisionCheck(player, lava[k])
-        if (dir) {
-            player.x = 50
-            player.y = height - 200
-            alert('You Died!')
-            document.location.reload()
+            var dir = collisionCheck(player, lava[k])
+            if (dir) {
+                console.log('touched')
+                player.x = 50
+                player.y = height - 200
+                alert('You Died!')
+                document.location.reload()
+            }
         }
-    }
-    ctx.closePath();
 
-    if (player.grounded) {
-        player.velY = 0;
-    }
-
-    player.x += player.velX;
-    player.y += player.velY;
-
-    ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
-
-
-    for (var j = 0; j < powerup.length; j++) {
-        ctx.save();
-        var cx = powerup[j].x + 0.5 * powerup[j].width,
-            cy = powerup[j].y + 0.5 * powerup[j].height;
-        ctx.translate(cx, cy);
-        ctx.rotate((Math.PI / 180) * 45);
-        if (powerup[j].effect === 'tele') {
-            ctx.rotate((Math.PI / 180) * powerup[j].rotate);
-            powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
+        if (player.grounded) {
+            player.velY = 0;
         }
-        ctx.translate(-cx, -cy);
-        ctx.fillStyle = powerup[j].color;
-        ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
-        ctx.restore();
+
+        player.x += player.velX;
+        player.y += player.velY;
+
+        ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
 
 
-        if (collisionCheck(player, powerup[j]) !== null) {
-            if (powerup[j].effect === 'gravity') {
-                gravity = 0.4;
-                player.speed = 4;
-                player.color = 'white';
-            } else if (powerup[j].effect === 'shrink') {
-                player.width = 10;
-                player.height = 10;
-                player.speed = 5;
-            } else if (powerup[j].effect === 'tele') {
-                player.x = powerup[j].px;
-                player.y = powerup[j].py;
-            } else if (powerup[j].effect === 'win') {
-                var r = confirm("You beat the level! Would you like to play again?");
-                if (r == true) {
-                    document.location.reload();
-                } else {
+        for (var j = 0; j < powerup.length; j++) {
+            ctx.save();
+            var cx = powerup[j].x + 0.5 * powerup[j].width,
+                cy = powerup[j].y + 0.5 * powerup[j].height;
+            ctx.translate(cx, cy);
+            ctx.rotate((Math.PI / 180) * 45);
+            if (powerup[j].effect === 'tele') {
+                ctx.rotate((Math.PI / 180) * powerup[j].rotate);
+                powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
+            }
+            ctx.translate(-cx, -cy);
+            ctx.fillStyle = powerup[j].color;
+            ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
+            ctx.restore();
+
+
+            if (collisionCheck(player, powerup[j]) !== null) {
+                if (powerup[j].effect === 'gravity') {
+                    gravity = 0.4;
+                    player.speed = 4;
+                    player.color = 'white';
+                } else if (powerup[j].effect === 'shrink') {
+                    player.width = 10;
+                    player.height = 10;
+                    player.speed = 5;
+                } else if (powerup[j].effect === 'tele') {
+                    player.x = powerup[j].px;
+                    player.y = powerup[j].py;
+                } else if (powerup[j].effect === 'win') {
+                    var r = alert(`You beat level 1!`);
+                    r;
                     player.x = 50
                     player.y = height - 200
+                    player.width = 50;
+                    player.height = 50;
+                    player.speed = 3;
+                    player.velX = 0;
+                    player.velY = 0;
+                    //level = 2;
+
                 }
+                if (powerup[j].stay !== true)
+                    powerup[j].width = 0;
+                powerup[j].height = 0;
             }
-            if (powerup[j].stay !== true)
-                powerup[j].width = 0;
-            powerup[j].height = 0;
         }
+
+
+        requestAnimationFrame(update);
     }
 
+/*
+    if (level == 2) {
+        ctx.font = 'Montserrat sans-serif'
+        ctx.fillText('Level 2', canvas.width / 2, canvas.height / 2 - 100)
 
-    requestAnimationFrame(update);
+        for (var i = 0; i < boxes.length; i++) {
+            ctx.fillStyle = boxes[i].color;
+            ctx.fillRect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
+
+            var dir = collisionCheck(player, boxes[i]);
+
+            if (dir === "l" || dir === "r") {
+                player.velX = 0;
+                player.jumping = false;
+            } else if (dir === "b") {
+                player.grounded = true;
+                player.jumping = false;
+            } else if (dir === "t") {
+                player.velY *= -1;
+            }
+
+        }
+
+        for (var k = 0; k < lava.length; k++) {
+            ctx.fillStyle = lava[k].color;
+            ctx.fillRect(lava[k].x, lava[k].y, lava[k].width, lava[k].height)
+
+
+            var dir = collisionCheck(player, lava[k])
+            if (dir) {
+                player.x = 50
+                player.y = height - 200
+                alert('You Died!')
+                document.location.reload()
+            }
+        }
+
+        if (player.grounded) {
+            player.velY = 0;
+        }
+
+        player.x += player.velX;
+        player.y += player.velY;
+
+        ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
+
+
+        for (var j = 0; j < powerup.length; j++) {
+            ctx.save();
+            var cx = powerup[j].x + 0.5 * powerup[j].width,
+                cy = powerup[j].y + 0.5 * powerup[j].height;
+            ctx.translate(cx, cy);
+            ctx.rotate((Math.PI / 180) * 45);
+            if (powerup[j].effect === 'tele') {
+                ctx.rotate((Math.PI / 180) * powerup[j].rotate);
+                powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
+            }
+            ctx.translate(-cx, -cy);
+            ctx.fillStyle = powerup[j].color;
+            ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
+            ctx.restore();
+
+
+            if (collisionCheck(player, powerup[j]) !== null) {
+                if (powerup[j].effect === 'gravity') {
+                    gravity = 0.4;
+                    player.speed = 4;
+                    player.color = 'white';
+                } else if (powerup[j].effect === 'shrink') {
+                    player.width = 10;
+                    player.height = 10;
+                    player.speed = 5;
+                } else if (powerup[j].effect === 'tele') {
+                    player.x = powerup[j].px;
+                    player.y = powerup[j].py;
+                } else if (powerup[j].effect === 'win') {
+                    var r = confirm("You beat the level! Would you like to play again?");
+                    if (r == true) {
+                        document.location.reload();
+                    } else {
+                        player.x = 50
+                        player.y = height - 200
+                    }
+                }
+                if (powerup[j].stay !== true)
+                    powerup[j].width = 0;
+                powerup[j].height = 0;
+            }
+        }
+
+
+        requestAnimationFrame(update);
+    }
+    */
 }
 
 function collisionCheck(shapeA, shapeB) {
